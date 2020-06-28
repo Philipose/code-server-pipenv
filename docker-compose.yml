@@ -1,0 +1,22 @@
+# docker run -it -p 127.0.0.1:8080:8080 -v "$PWD:/home/coder/project" codercom/code-server
+version: "3"
+
+services:
+  vscode:
+      build: ./code-server/
+      restart: always
+      container_name: "vscode"
+      ports:
+        - "8800:8443"
+        - "9100:8000"
+      env_file:
+        - code-server/.coder.env
+      expose:
+        - 8443
+      networks:
+        - net
+      volumes:
+        - ./code-server/config:/config
+
+networks:
+  net:
